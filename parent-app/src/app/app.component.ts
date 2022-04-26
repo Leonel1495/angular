@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, Inject } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
 
 @Component({
@@ -7,7 +7,6 @@ import { Component, ViewChild, ElementRef, OnInit, Inject } from '@angular/core'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  @ViewChild('appComponentRef', {static: true}) appComponentRef: ElementRef;
   @ViewChild('iframeRef', {static:true}) iframeRef: HTMLIFrameElement;
   title = 'parent-app';
   isIFrame = (input: HTMLElement | null): input is HTMLIFrameElement =>
@@ -17,12 +16,15 @@ export class AppComponent implements OnInit {
   }
   
   onParentClick() {
+    
     const message = JSON.stringify({
       message: 'Hello from Parent Window',
       date: Date.now(),
     });
 
     let frame = document.getElementById('frame');
+    let frame2 = this.iframeRef;
+    console.log(frame2);
     if (this.isIFrame(frame) && frame.contentWindow) {
         frame.contentWindow.postMessage(message, 'http://localhost:4210');
     }

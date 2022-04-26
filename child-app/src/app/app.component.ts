@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,8 @@ import { Component, ElementRef, ViewChild, OnInit, Renderer2 } from '@angular/co
 
 export class AppComponent implements OnInit {
   title = 'child-app';
-  @ViewChild('appComponentRef', {static: true}) appComponentRef: ElementRef;
   message: string = '';
   date: string = '';
-
 
   constructor() { 
     if (window.addEventListener) {
@@ -19,10 +17,6 @@ export class AppComponent implements OnInit {
     } else {
        (<any>window).attachEvent("onmessage", this.receiveMessage.bind(this));
     }
-  }
-
-  ngOnInit(): void {
-     
   }
 
   receiveMessage(event: MessageEvent )
@@ -36,9 +30,10 @@ export class AppComponent implements OnInit {
     this.date = date.toString();
   }
 
-  onChildClick() {
-    console.log('Child');
-    console.log(this.appComponentRef);
+
+  ngOnInit(): void {
+     
   }
+
 
 }
